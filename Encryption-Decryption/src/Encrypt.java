@@ -6,7 +6,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class Encrypt {
-
         private static String mode = "enc";
         private static int key = 0;
         private static String data = "";

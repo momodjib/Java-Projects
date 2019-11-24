@@ -133,8 +133,8 @@ public class CoffeeMachine {
             return false;
         }
     }
-
     public static void main(String[] args) {
-        showStatus();
+       //showStatus();
+        System.out.println("");
     }
 }
