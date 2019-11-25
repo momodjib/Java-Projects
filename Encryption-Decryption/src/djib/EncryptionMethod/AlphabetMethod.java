@@ -4,6 +4,8 @@ public class AlphabetMethod extends EncryptMethod{
 
     private char a = 'a';
     private char z = 'z';
+    private char A = 'A';
+	private char Z = 'Z';
     private int size = 26;
 
     @Override
@@ -21,30 +23,39 @@ public class AlphabetMethod extends EncryptMethod{
     }
 
     @Override
-    public void decrypt(String message, int key) {
-        String alpha = "abcdefghijklmnopqrstuvwxyz";
-        char[] alphabet = alpha.toCharArray();
-        char[] toCode = message.toCharArray();
-        char shiftItem;
+	public void decrypt(String message, int key) { //To be corrected to decrypt instead of encrypting
+		String alpha = "abcdefghijklmnopqrstuvwxyz";
+		char[] alphabet = alpha.toCharArray();
+		char[] toCode = message.toCharArray();
+		char shiftItem;
 
-        for (int i = 0; i < toCode.length; i++) {
-            for (int j = 0; j < alphabet.length; j++){
+		for (int i = 0; i < toCode.length; i++) {
+			if(toCode[i] >= a && toCode[i] <= z || toCode[i] >= A && toCode[i] <= Z){
+				for (int j = 0; j < alphabet.length; j++){
 
-                if(toCode[i] == alphabet[j] && j+key < alphabet.length){
-                    //shiftItem = alphabet[j+key];
-                    System.out.print(alphabet[j+key]);
-                }else if(toCode[i] == alphabet[j] && j+key >= alphabet.length){
-                    //shiftItem = alphabet[0];
-                    //int x = key -(1+25-i);
-                    //shiftItem = alphabet[key -(1+25-i)];
-                    System.out.print(alphabet[key -(1+25-i)]);
-                }else{
-                    System.out.print(toCode[i]);
-                }
-            }
+					if(toCode[i] == alphabet[j] && j+key < alphabet.length){
+						System.out.print(alphabet[j+key]);
+						break;
+					}else if(toCode[i] == alphabet[j] && j+key >= alphabet.length){
+						System.out.print(alphabet[key -(1+25-j)]);
+						break;
+					}
+					else {
+						final var b=toCode[i] == Character.toUpperCase(alphabet[j]);
+						if(b && j+key < alphabet.length){
+							System.out.print(Character.toUpperCase(alphabet[j+key]));
+							break;
+						}else if(b && j+key >= alphabet.length){
+							System.out.print(Character.toUpperCase(alphabet[key -(1+25-j)]));
+							break;
+						}
+					}
+				}
+			}
+			else{
+				System.out.print(toCode[i]);
+			}
+		}
 
-            //System.out.print(shiftItem);
-        }
-
-    }
+	}
 }
