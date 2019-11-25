@@ -13,7 +13,7 @@ public class MethodPicker {
     private static String alg = "";
     private static boolean fromFile = false, outToFile = false;
 
-    public void setMethod(EncryptMethod method) {
+    private void setMethod(EncryptMethod method) {
 
         this.method = method;
     }
@@ -60,11 +60,11 @@ public class MethodPicker {
 
         switch(alg) {
             case "shift":
-                this.setMethod(new AlphabetMethod());
+                this.method = (new AlphabetMethod());
                 this.setValues();
                 break;
             case "unicode":
-                this.setMethod(new AsciiMethod());
+                this.method = (new AsciiMethod());
                 this.setValues();
                 break;
             default:
@@ -73,20 +73,20 @@ public class MethodPicker {
         }
     }
 
-    public void setValues(){
+    private void setValues(){
         this.method.fromFile = fromFile;
         this.method.outToFile = outToFile;
         this.method.in = in;
         this.method.out = out;
     }
 
-    public void process(){
+    public void process() throws IOException {
 
-       if(method instanceof AlphabetMethod) {
-
+       if(mode.equals("enc")) {
+            method.encrypt(message,key);
        }
-       else if(method instanceof AsciiMethod){
-
+       else{
+            method.decrypt(message,key);
         }
     }
 }

@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         MethodPicker picker = new MethodPicker();
-        picker.getDetails(args);
+        picker.getDetails(new String[]{"-mode","enc","-key","5","-data","welcome","-alg","shift","-out","dumb.txt"});
         picker.pick();
         picker.process();
     }

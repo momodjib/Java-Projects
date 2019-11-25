@@ -22,6 +22,29 @@ public class AlphabetMethod extends EncryptMethod{
 
     @Override
     public void decrypt(String message, int key) {
+        String alpha = "abcdefghijklmnopqrstuvwxyz";
+        char[] alphabet = alpha.toCharArray();
+        char[] toCode = message.toCharArray();
+        char shiftItem;
+
+        for (int i = 0; i < toCode.length; i++) {
+            for (int j = 0; j < alphabet.length; j++){
+
+                if(toCode[i] == alphabet[j] && j+key < alphabet.length){
+                    //shiftItem = alphabet[j+key];
+                    System.out.print(alphabet[j+key]);
+                }else if(toCode[i] == alphabet[j] && j+key >= alphabet.length){
+                    //shiftItem = alphabet[0];
+                    //int x = key -(1+25-i);
+                    //shiftItem = alphabet[key -(1+25-i)];
+                    System.out.print(alphabet[key -(1+25-i)]);
+                }else{
+                    System.out.print(toCode[i]);
+                }
+            }
+
+            //System.out.print(shiftItem);
+        }
 
     }
 }
