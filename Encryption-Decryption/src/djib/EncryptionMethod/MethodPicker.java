@@ -10,7 +10,7 @@ public class MethodPicker {
     private static int key = 0;
     private static String in = "";
     private static String out = "";
-    private static String alg = "";
+    private static String alg = "shift";
     private static boolean fromFile = false, outToFile = false;
 
     private void setMethod(EncryptMethod method) {

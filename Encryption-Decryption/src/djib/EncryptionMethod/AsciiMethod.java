@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class AsciiMethod extends EncryptMethod {
-    char[] chars;
+    private char[] chars;
     @Override
     public void encrypt(String message, int key) throws IOException {
 
@@ -32,7 +32,7 @@ public class AsciiMethod extends EncryptMethod {
                     char shiftItem = (char) (item + key);
                     System.out.print(shiftItem);
                 }
-            } else {
+            }else {
                 FileWriter writer = new FileWriter(new File(out));
                 for (char item : chars) {
                     char shiftItem = (char) (item + key);
