@@ -13,70 +13,26 @@ public class AlphabetMethod extends EncryptMethod {
 	private String alpha="abcdefghijklmnopqrstuvwxyz";
 	private char[] alphabet=alpha.toCharArray();
 	private char[] toCode;
+	private static int SIZE=26;
 
 	@Override
 	public void encrypt(String message, int key) throws IOException {
 
 		char[] chars;
-		int size=26;
 		if(!fromFile) {
 			chars=message.toCharArray();
 			if(!outToFile) {
-				for (char item : chars) {
-					if(item >= a && item <= z) {
-						char shiftItem=(char) (((item - a + key) % size) + a);
-						System.out.print(shiftItem);
-					} else if(item >= A && item <= Z) {
-						char shiftItem=(char) (((item - A + key) % size) + A);
-						System.out.print(shiftItem);
-					} else {
-						System.out.print(item);
-					}
-				}
+				fromConsoleToConsoleEnc(message,key,chars);
 			} else {
-				FileWriter writer=new FileWriter(new File(out));
-				for (char item : chars) {
-					if(item >= a && item <= z) {
-						char shiftItem=(char) (((item - a + key) % size) + a);
-						writer.write(shiftItem);
-					} else if(item >= A && item <= Z) {
-						char shiftItem=(char) (((item - A + key) % size) + A);
-						writer.write(shiftItem);
-					} else {
-						writer.write(item);
-					}
-				}
-				writer.close();
+				fromConsoleToFileEnc(message,key,chars);
 			}
 		} else {
 			File input=new File(in);
-			chars=getData(input.getName()).toCharArray();
+			chars = getData(input.getName()).toCharArray();
 			if(outToFile) {
-				FileWriter writer=new FileWriter(new File(out));
-				for (char item : chars) {
-					if(item >= a && item <= z) {
-						char shiftItem=(char) (((item - a + key) % size) + a);
-						writer.write(shiftItem);
-					} else if(item >= A && item <= Z) {
-						char shiftItem=(char) (((item - A + key) % size) + A);
-						writer.write(shiftItem);
-					} else {
-						writer.write(item);
-					}
-				}
-				writer.close();
+				fromFileToFileEnc(message,key,chars);
 			} else {
-				for (char item : chars) {
-					if(item >= a && item <= z) {
-						char shiftItem=(char) (((item - a + key) % size) + a);
-						System.out.print(shiftItem);
-					} else if(item >= A && item <= Z) {
-						char shiftItem=(char) (((item - A + key) % size) + A);
-						System.out.print(shiftItem);
-					} else {
-						System.out.print(item);
-					}
-				}
+				fromFileToConsoleEnc(message,key,chars);
 			}
 		}
 	}
@@ -86,21 +42,21 @@ public class AlphabetMethod extends EncryptMethod {
 
 		if(fromFile){
 			if(outToFile){
-				fromFileToFile(message, key);
+				fromFileToFileDec(message, key);
 			}else{
-				fromFileToConsole(message, key);
+				fromFileToConsoleDec(message, key);
 			}
 		}else{
 			if(outToFile){
-				fromConsoleToFile(message, key);
+				fromConsoleToFileDec(message, key);
 			}else{
-				fromConsoleToConsole(message, key);
+				fromConsoleToConsoleDec(message, key);
 			}
 		}
 	}
 
 
-	private void fromFileToFile(String message, int key) throws IOException {
+	private void fromFileToFileDec(String message, int key) throws IOException {
 
 		File input=new File(in);
 		FileWriter writer=new FileWriter(new File(out));
@@ -133,7 +89,7 @@ public class AlphabetMethod extends EncryptMethod {
 		writer.close();
 	}
 
-	private void fromFileToConsole(String message, int key){
+	private void fromFileToConsoleDec(String message, int key){
 
 		File input = new File(in);
 		toCode = getData(input.getName()).toCharArray();
@@ -164,7 +120,7 @@ public class AlphabetMethod extends EncryptMethod {
 		}
 	}
 
-	private void fromConsoleToConsole(String message, int key){
+	private void fromConsoleToConsoleDec(String message, int key){
 
 		toCode=message.toCharArray();
 
@@ -194,7 +150,7 @@ public class AlphabetMethod extends EncryptMethod {
 		}
 	}
 
-	private void fromConsoleToFile(String message, int key) throws IOException{
+	private void fromConsoleToFileDec(String message, int key) throws IOException{
 
 		toCode = message.toCharArray();
 		FileWriter writer = new FileWriter(new File(out));
@@ -220,5 +176,69 @@ public class AlphabetMethod extends EncryptMethod {
 			}
 		}
 		writer.close();
+	}
+
+	private void fromFileToFileEnc(String message, int key, char[] chars) throws IOException {
+
+		FileWriter writer=new FileWriter(new File(out));
+			for (char item : chars) {
+				if(item >= a && item <= z) {
+					char shiftItem=(char) (((item - a + key) % SIZE) + a);
+					writer.write(shiftItem);
+				} else if(item >= A && item <= Z) {
+					char shiftItem=(char) (((item - A + key) % SIZE) + A);
+					writer.write(shiftItem);
+				} else {
+					writer.write(item);
+				}
+			}
+			writer.close();
+	}
+
+	private void fromFileToConsoleEnc(String message, int key, char[] chars){
+
+		for (char item : chars) {
+			if(item >= a && item <= z) {
+				char shiftItem=(char) (((item - a + key) % SIZE) + a);
+				System.out.print(shiftItem);
+			} else if(item >= A && item <= Z) {
+				char shiftItem=(char) (((item - A + key) % SIZE) + A);
+				System.out.print(shiftItem);
+			} else {
+				System.out.print(item);
+			}
+		}
+	}
+
+	private void fromConsoleToFileEnc(String message, int key, char[] chars) throws IOException{
+
+		FileWriter writer=new FileWriter(new File(out));
+			for (char item : chars) {
+				if(item >= a && item <= z) {
+					char shiftItem=(char) (((item - a + key) % SIZE) + a);
+					writer.write(shiftItem);
+				} else if(item >= A && item <= Z) {
+					char shiftItem=(char) (((item - A + key) % SIZE) + A);
+					writer.write(shiftItem);
+				} else {
+					writer.write(item);
+				}
+			}
+			writer.close();
+	}
+
+	private void fromConsoleToConsoleEnc(String message, int key, char[] chars){
+
+		for (char item : chars) {
+			if(item >= a && item <= z) {
+				char shiftItem=(char) (((item - a + key) % SIZE) + a);
+				System.out.print(shiftItem);
+			} else if(item >= A && item <= Z) {
+				char shiftItem=(char) (((item - A + key) % SIZE) + A);
+				System.out.print(shiftItem);
+			} else {
+				System.out.print(item);
+			}
+		}
 	}
 }
