@@ -22,16 +22,21 @@ public class AlphabetMethod extends EncryptMethod {
 		if(!fromFile) {
 			chars=message.toCharArray();
 			if(!outToFile) {
+				System.out.println("The secret message is :");
 				fromConsoleToConsoleEnc(message,key,chars);
 			} else {
+				System.out.println("The secret message has been written in the file: "+ out);
 				fromConsoleToFileEnc(message,key,chars);
 			}
 		} else {
+			System.out.println("The source message was found in the file: "+ in);
 			File input=new File(in);
 			chars = getData(input.getName()).toCharArray();
 			if(outToFile) {
+				System.out.println("The secret message has been written in the file: "+ out);
 				fromFileToFileEnc(message,key,chars);
 			} else {
+				System.out.println("The secret message is :");
 				fromFileToConsoleEnc(message,key,chars);
 			}
 		}
@@ -41,15 +46,20 @@ public class AlphabetMethod extends EncryptMethod {
 	public void decrypt(String message, int key) throws IOException {
 
 		if(fromFile){
+			System.out.println("The source message was found in the file: "+ in);
 			if(outToFile){
+				System.out.println("The secret message has been written in the file: "+ out);
 				fromFileToFileDec(message, key);
 			}else{
+				System.out.println("The secret message is :");
 				fromFileToConsoleDec(message, key);
 			}
 		}else{
 			if(outToFile){
+				System.out.println("The secret message has been written in the file: "+ out);
 				fromConsoleToFileDec(message, key);
 			}else{
+				System.out.println("The secret message is :");
 				fromConsoleToConsoleDec(message, key);
 			}
 		}

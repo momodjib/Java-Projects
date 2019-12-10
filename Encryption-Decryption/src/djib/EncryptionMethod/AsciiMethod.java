@@ -12,11 +12,13 @@ public class AsciiMethod extends EncryptMethod {
 		if(!fromFile || (fromFile && !message.equals(""))){
 			chars = message.toCharArray();
 			if(!outToFile){
+				System.out.println("The secret message is :");
 				for (char item : chars) {
 					char shiftItem = (char) (item + key);
 					System.out.print(shiftItem);
 				}
 			}else{
+				System.out.println("The secret message has been written in the file: "+ out);
 				FileWriter writer = new FileWriter(new File(out));
 				for (char item : chars) {
 					char shiftItem = (char) (item + key);
@@ -25,14 +27,17 @@ public class AsciiMethod extends EncryptMethod {
 				writer.close();
 			}
 		}else{
+			System.out.println("The source message was found in the file: "+ in);
 			File input = new File(in);
 			chars = getData(input.getName()).toCharArray();
 			if(!outToFile) {
+				System.out.println("The secret message is :");
 				for (char item : chars) {
 					char shiftItem = (char) (item + key);
 					System.out.print(shiftItem);
 				}
 			}else {
+				System.out.println("The secret message has been written in the file: "+ out);
 				FileWriter writer = new FileWriter(new File(out));
 				for (char item : chars) {
 					char shiftItem = (char) (item + key);
@@ -49,11 +54,13 @@ public class AsciiMethod extends EncryptMethod {
 		if(!fromFile || (fromFile && !message.equals(""))){
 			chars = message.toCharArray();
 			if(!outToFile){
+				System.out.println("The secret message is :");
 				for (char item : chars) {
 					char shiftItem = (char) (item - key);
 					System.out.print(shiftItem);
 				}
 			}else{
+				System.out.println("The secret message has been written in the file: "+ out);
 				FileWriter writer = new FileWriter(new File(out));
 				for (char item : chars) {
 					char shiftItem = (char) (item - key);
@@ -62,14 +69,17 @@ public class AsciiMethod extends EncryptMethod {
 				writer.close();
 			}
 		}else{
+			System.out.println("The source message was found in the file: "+ in);
 			File input = new File(in);
 			chars = getData(input.getName()).toCharArray();
 			if(!outToFile){
+				System.out.println("The secret message is :");
 				for (char item : chars) {
 					char shiftItem = (char) (item - key);
 					System.out.print(shiftItem);
 				}
 			}else{
+				System.out.println("The secret message has been written in the file: "+ out);
 				FileWriter writer = new FileWriter(new File(out));
 				for (char item : chars) {
 					char shiftItem = (char) (item - key);

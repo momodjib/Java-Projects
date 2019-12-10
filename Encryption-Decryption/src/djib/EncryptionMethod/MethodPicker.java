@@ -54,6 +54,8 @@ public class MethodPicker {
 					break;
 			}
 		}
+		pick();
+		process();
 	}
 
 	public void pick() {
@@ -62,10 +64,12 @@ public class MethodPicker {
 			case "shift":
 				this.method = (new AlphabetMethod());
 				this.setValues();
+				System.out.println("The selected method is: Alphabet-circle Algorithm");
 				break;
 			case "unicode":
 				this.method = (new AsciiMethod());
 				this.setValues();
+				System.out.println("The selected method is: Unicode-based Algorithm");
 				break;
 			default:
 				System.out.println("Unknown method");
