@@ -28,3 +28,6 @@ Default setup:
 -key : 0 (the program will return the input text without changes).
 -alg : shift.
 -data : empty string.
+
+
+NB: This project will be updated in the future but in the meantime a demo video is added to show the current behaviour of the program.
