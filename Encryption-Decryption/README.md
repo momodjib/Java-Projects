@@ -22,7 +22,7 @@ java Main -key 5 -alg unicode -data "Welcome to my GitHub" -mode enc
 Note that not all arguments have to be specified, the default settings will be used if not specified.
 Default setup:
 
--mode : enc.
+-mode : enc.\n
 -in : not used. Input is entered manually by the user (-data).
 -out : not used. Result is displayed in the console / IDE.
 -key : 0 (the program will return the input text without changes).
