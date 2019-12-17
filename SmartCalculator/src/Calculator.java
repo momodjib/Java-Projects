@@ -23,7 +23,6 @@ public class Calculator {
             }
         }
     }
-
     private static void processLine(String line){
 
         String sign = "([\\+ | \\-])*";
@@ -36,7 +35,7 @@ public class Calculator {
             }else{
                 System.out.println(line.trim());
             }
-        }else if(line.matches("\\/w+")){
+        }else if(line.matches("/"+"\\w+")){
             System.out.println("Unknown command");
         }
         else if (matcher.matches()){
@@ -53,10 +52,10 @@ public class Calculator {
                         result -= Integer.parseInt(items[i+1]);
                     }
                 }
+                System.out.println(result);
             }catch(NullPointerException e){
                 System.out.println(result);
             }
-                System.out.println(result);
         }else{
             System.out.println("Invalid expression");
         }
