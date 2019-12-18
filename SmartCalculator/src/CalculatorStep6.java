@@ -51,8 +51,7 @@ public class CalculatorStep6 {
         }
     }
     private static void processLine(String line){
-
-        //String sign = "([\\+ | \\-])*";
+        
         Pattern pattern = Pattern.compile(SIGN+"(\\d+\\s+"+SIGN+"\\s+\\d*)+");
         Matcher matcher = pattern.matcher(line);
 
@@ -105,7 +104,6 @@ public class CalculatorStep6 {
         return temp;
     }
     private static void processVariables(String line){
-        //System.out.println("boom");
         if(line.matches("\\w+")){
             if(storedVariables.containsKey(line)){
                 System.out.println(storedVariables.get(line));
@@ -140,12 +138,5 @@ public class CalculatorStep6 {
 
     public static void main(String[] args) {
        getInput(scanner);
-//        String line = "count    =    25";
-//        line = line.replaceAll("\\s+"," ");
-//        String[]temp =line.split(" ");[a-zA-Z]+\s*=\s*[a-zA-Z]9
-        //System.out.println(line.matches(LETTER+"("+"\\s*"+SIGN+"\\s*"+LETTERDIGIT+")+"));
-        //System.out.println(  "("+LETTER+"\\s*"+SIGN+"\\s*"+LETTER+")+"     );
-        //System.out.println(  "([a-zA-Z]+\\s*([\\+ | \\-])*\\s*[a-zA-Z]+)+"  );
-//        System.out.println(temp[temp.length-1]);
     }
 }
