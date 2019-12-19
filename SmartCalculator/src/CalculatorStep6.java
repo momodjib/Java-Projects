@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 public class CalculatorStep6 {
 
-    private static Scanner scanner = new Scanner(System.in);
     private static Map<String, Integer> storedVariables = new TreeMap<>();
     private static final String SIGN = "([\\+ | \\-])*";
     private static final String LETTER = "[a-zA-Z]+";
@@ -28,12 +27,11 @@ public class CalculatorStep6 {
                     processLine(line);
                     break;
             }
-            tab();
         }
     }
     private static void processOperands(String line){
-        line = line.replaceAll("\\s+"," ");
-        String[] items = line.split(" ");
+        
+        String[]items = lineToArray(line, " ");
         int result = Integer.parseInt(items[0]);
 
         try{
@@ -51,7 +49,7 @@ public class CalculatorStep6 {
         }
     }
     private static void processLine(String line){
-        
+
         Pattern pattern = Pattern.compile(SIGN+"(\\d+\\s+"+SIGN+"\\s+\\d*)+");
         Matcher matcher = pattern.matcher(line);
 
@@ -65,18 +63,21 @@ public class CalculatorStep6 {
         else if(line.matches("/"+"\\w+")){
             System.out.println("Unknown command");
         }
-        else if(line.matches("[a-zA-Z]+\\s*=\\s*(\\d+|[a-zA-Z]+)") || line.matches("[a-zA-Z]+") || line.matches(LETTER+"("+"\\s*"+SIGN+"\\s*"+LETTERDIGIT+")+")){
+        else if(line.matches(LETTER+"\\s*=\\s*(\\d+|"+LETTER+")") || line.matches(LETTER) || line.matches(LETTER+"("+"\\s*"+SIGN+"\\s*"+LETTERDIGIT+")+")){
             processVariables(line);
         }
         else if (matcher.matches()){
             processOperands(line);
         }
+        else if (line.isBlank() || line.isBlank()){
+            //System.out.print();
+        }
         else{
             String[] temp = line.split("=");
-            if(temp.length>2 || line.matches("[a-zA-Z]+\\s*=\\s*[a-zA-Z]\\d+[a-zA-Z]*")){ //more than one '=' sign
+            if(temp.length>2 || line.matches(LETTER+"\\s*=\\s*[a-zA-Z]\\d+[a-zA-Z]*")){ //more than one '=' sign
                 System.out.println("Invalid assignment");
             }
-            else if (line.matches("[a-zA-Z]+\\d+\\s*=\\s*\\d+")){
+            else if (line.matches(LETTER+"\\d+\\s*=\\s*\\d+")){
                 System.out.println("Invalid identifier");
             }
             else{
@@ -104,6 +105,7 @@ public class CalculatorStep6 {
         return temp;
     }
     private static void processVariables(String line){
+        
         if(line.matches("\\w+")){
             if(storedVariables.containsKey(line)){
                 System.out.println(storedVariables.get(line));
@@ -112,13 +114,11 @@ public class CalculatorStep6 {
             }
         }
         else if(line.matches("\\w+\\s*=\\s*\\d+")){
-            line = line.replaceAll("\\s+"," ");
-            String[] temp = line.split("=");
+            String[]temp = lineToArray(line, "=");
             storedVariables.put(temp[0].trim(),Integer.parseInt(temp[temp.length-1].trim()));
         }
         else if(line.matches("\\w+\\s*=\\s*\\w+")){
-            line = line.replaceAll("\\s+"," ");
-            String[] temp = line.split("=");
+            String[]temp = lineToArray(line, "=");
 
             if(temp[0].trim().matches("\\w+\\d+\\w*") || temp[temp.length-1].trim().matches("\\w+\\d+\\w*")){
                 System.out.println("Invalid assignment");
@@ -130,13 +130,27 @@ public class CalculatorStep6 {
                 System.out.println("Unknown variable");
             }
         }
-    }
+        else if (line.matches(LETTER+"("+"\\s*"+SIGN+"\\s*"+LETTERDIGIT+")+")){
+            String[]temp = lineToArray(line, " ");
+            String operands = "";
 
-    static void tab(){
-        System.out.println(storedVariables);
+            for (String s :temp) {
+                if(s.matches("[a-zA-Z]")){
+                    if(storedVariables.containsKey(s)){
+                        operands+=storedVariables.get(s)+" ";
+                    }
+                }else if(s.matches("\\d+" +"|"+ SIGN)){
+                    operands+=s+" ";
+                }
+            }
+            processOperands(operands);
+        }
     }
-
+    private static String[] lineToArray(String line, String separator){
+        return line.replaceAll("\\s+"," ").split(separator);
+    }
+    
     public static void main(String[] args) {
-       getInput(scanner);
+       getInput(new Scanner(System.in));
     }
 }
