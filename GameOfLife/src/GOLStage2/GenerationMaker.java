@@ -21,7 +21,11 @@ public class GenerationMaker {
                }else{
                    if (j == 0) {
 
-                   }else{
+                   }
+                   else if (j == size-1){
+
+                   }
+                   else{
                        int aliveCells = checkNeighbours(i,j);
                        if (isAlive(i,j)){
                            if ((aliveCells >=2) && (aliveCells <=3)){
