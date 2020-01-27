@@ -23,8 +23,8 @@ public class GOLStage2 {
         }
         for (int i = 1; i <= depth; i++) {
             currentGeneration = game.nextGeneration(currentGeneration);
+            showResult();
         }
-        showResult();
 
     }
 
