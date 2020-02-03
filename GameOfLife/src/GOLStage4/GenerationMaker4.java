@@ -354,13 +354,4 @@ public class GenerationMaker4 {
     public boolean isAlive(int row, int col) {
         return currentGeneration[row][col].isAlive();
     }
-
-//    public SimpleCell[][] copyArray(SimpleCell[][] original, SimpleCell[][] copy) {
-//        for (int i = 0; i < original.length; i++) {
-//            for (int j = 0; j < original.length; j++) {
-//
-//            }
-//        }
-//
-//    }
 }

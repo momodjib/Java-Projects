@@ -44,7 +44,7 @@ public class GameOfLife extends JFrame {
         body.run();
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(100);
             updateLabels();
         } catch (InterruptedException ignore) { }
     }
