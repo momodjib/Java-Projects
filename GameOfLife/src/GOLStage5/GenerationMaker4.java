@@ -1,355 +1,122 @@
 package GOLStage5;
 
-public class GenerationMaker4 {
-    private static Cell[][] currentGeneration;
-    private static Cell[][] nextGeneration;
-    private static int aliveNeighbours;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
+public class GameOfLife extends JFrame implements ActionListener {
 
-    public Cell[][] nextGeneration(Cell[][] generation) {
+    private static class GameStep extends TimerTask {
+        static GameOfLife life = new GameOfLife();
 
-        currentGeneration = generation;
-        int size = currentGeneration.length;
-        nextGeneration = new Cell[size][size];
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-
-                if (i == 0) {
-                    setNextGeneration(checkTopNeighbours(i, j), i, j);
-
-                } else if (i == size - 1) {
-                    setNextGeneration(checkBottomNeighbours(i, j), i, j);
-
-                } else {
-                    if (j == 0) {
-                        setNextGeneration(checkLeftNeighbours(i, j), i, j);
-                    } else if (j == size - 1) {
-                        setNextGeneration(checkRightNeighbours(i, j), i, j);
-                    } else {
-                        setNextGeneration(checkNeighbours(i, j), i, j);
-                    }
-                }
-            }
-        }
-        return nextGeneration;
-    }
-
-    public int checkNeighbours(int row, int col) {
-        aliveNeighbours = 0;
-
-        if (isAlive(row - 1, col - 1)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row - 1, col)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row - 1, col + 1)) {
-            aliveNeighbours++;
-        }
-
-        if (isAlive(row, col - 1)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row, col + 1)) {
-            aliveNeighbours++;
-        }
-
-        if (isAlive(row + 1, col - 1)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row + 1, col)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row + 1, col + 1)) {
-            aliveNeighbours++;
-        }
-
-        return aliveNeighbours;
-    }
-
-    public int checkTopNeighbours(int row, int col) {
-        aliveNeighbours = 0;
-
-        if (col == 0) {
-            //top neighbours
-            if (isAlive(currentGeneration.length - 1, currentGeneration.length - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(currentGeneration.length - 1, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(currentGeneration.length - 1, col + 1)) {
-                aliveNeighbours++;
-            }
-
-            //direct neighbours
-            if (isAlive(row, currentGeneration.length - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row, col + 1)) {
-                aliveNeighbours++;
-            }
-
-            //bottom neighbours
-            if (isAlive(row + 1, currentGeneration.length - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row + 1, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row + 1, col + 1)) {
-                aliveNeighbours++;
-            }
-        } else if (col == currentGeneration.length - 1) {
-
-            //top neighbours
-            if (isAlive(currentGeneration.length - 1, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(currentGeneration.length - 1, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(currentGeneration.length - 1, 0)) {
-                aliveNeighbours++;
-            }
-
-            //direct neighbours
-            if (isAlive(row, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row, 0)) {
-                aliveNeighbours++;
-            }
-
-            //bottom neighbours
-            if (isAlive(row + 1, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row + 1, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row + 1, 0)) {
-                aliveNeighbours++;
-            }
-        } else {
-            //top neighbours
-            if (isAlive(currentGeneration.length - 1, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(currentGeneration.length - 1, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(currentGeneration.length - 1, col + 1)) {
-                aliveNeighbours++;
-            }
-
-            //direct neighbours
-            if (isAlive(row, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row, col + 1)) {
-                aliveNeighbours++;
-            }
-
-            //bottom neighbours
-            if (isAlive(row + 1, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row + 1, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row + 1, col + 1)) {
-                aliveNeighbours++;
-            }
-        }
-        return aliveNeighbours;
-    }
-
-    public int checkBottomNeighbours(int row, int col) {
-        aliveNeighbours = 0;
-
-        if (col == 0) {
-            //top neighbours
-            if (isAlive(row - 1, currentGeneration.length - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row - 1, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row - 1, col + 1)) {
-                aliveNeighbours++;
-            }
-
-            //direct neighbours
-            if (isAlive(row, currentGeneration.length - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row, col + 1)) {
-                aliveNeighbours++;
-            }
-
-            //bottom neighbours
-            if (isAlive(0, currentGeneration.length - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(0, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(0, col + 1)) {
-                aliveNeighbours++;
-            }
-        } else if (col == currentGeneration.length - 1) {
-
-            //top neighbours
-            if (isAlive(row - 1, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row - 1, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row - 1, 0)) {
-                aliveNeighbours++;
-            }
-
-            //direct neighbours
-            if (isAlive(row, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row, 0)) {
-                aliveNeighbours++;
-            }
-
-            //bottom neighbours
-            if (isAlive(0, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(0, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(0, 0)) {
-                aliveNeighbours++;
-            }
-        } else {
-            //top neighbours
-            if (isAlive(row - 1, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row - 1, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row - 1, col + 1)) {
-                aliveNeighbours++;
-            }
-
-            //direct neighbours
-            if (isAlive(row, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(row, col + 1)) {
-                aliveNeighbours++;
-            }
-
-            //bottom neighbours
-            if (isAlive(0, col - 1)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(0, col)) {
-                aliveNeighbours++;
-            }
-            if (isAlive(0, col + 1)) {
-                aliveNeighbours++;
-            }
-        }
-        return aliveNeighbours;
-    }
-
-    public int checkLeftNeighbours(int row, int col) {
-        aliveNeighbours = 0;
-
-        if (isAlive(row - 1, currentGeneration.length - 1)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row - 1, col)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row - 1, col + 1)) {
-            aliveNeighbours++;
-        }
-
-        if (isAlive(row, currentGeneration.length - 1)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row, col + 1)) {
-            aliveNeighbours++;
-        }
-
-        if (isAlive(row + 1, currentGeneration.length - 1)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row + 1, col)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row + 1, col + 1)) {
-            aliveNeighbours++;
-        }
-
-        return aliveNeighbours;
-    }
-
-    public int checkRightNeighbours(int row, int col) {
-        aliveNeighbours = 0;
-
-        if (isAlive(row - 1, col - 1)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row - 1, col)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row - 1, 0)) {
-            aliveNeighbours++;
-        }
-
-        if (isAlive(row, col - 1)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row, 0)) {
-            aliveNeighbours++;
-        }
-
-        if (isAlive(row + 1, col - 1)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row + 1, col)) {
-            aliveNeighbours++;
-        }
-        if (isAlive(row + 1, 0)) {
-            aliveNeighbours++;
-        }
-
-        return aliveNeighbours;
-    }
-
-    public void setNextGeneration(int aliveCells, int row, int col) {
-
-        nextGeneration[row][col] = new Cell(currentGeneration[row][col].getX(), currentGeneration[row][col].getY(), currentGeneration[row][col].getWidth());
-
-        if (isAlive(row, col)) {
-            if ((aliveCells == 2) || (aliveCells == 3)) {
-                nextGeneration[row][col].setAlive(true);
-            } else {
-                nextGeneration[row][col].setAlive(false);
-            }
-        } else {
-            if (aliveCells == 3) {
-                nextGeneration[row][col].setAlive(true);
-            } else {
-                nextGeneration[row][col].setAlive(false);
-            }
+        @Override
+        public void run() {
+            updateLabels();
         }
     }
 
-    public boolean isAlive(int row, int col) {
-        return currentGeneration[row][col].isAlive();
+    static JLabel aliveLabel = new JLabel("Alive:");
+    static JLabel GenerationLabel = new JLabel("Generation #");
+    static CellGrid body = new CellGrid();
+    static JPanel header = new JPanel();
+    static int genNumber = 1;
+    static Boolean isPaused = false;
+    static JButton PlayToggleButton = new JButton("Pause");
+    JButton ResetButton = new JButton("Reset");
+    static GameStep game = new GameStep();
+    static Timer timer = new Timer();
+
+    public GameOfLife() {
+        super("Game of life");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(700, 660);
+        setLocationRelativeTo(null);
+        setLayout(new FlowLayout());
+
+        GenerationLabel.setName("GenerationLabel");
+        aliveLabel.setName("aliveLabel");
+        PlayToggleButton.setName("PlayToggleButton");
+        ResetButton.setName("ResetButton");
+
+        PlayToggleButton.addActionListener(this);
+        ResetButton.addActionListener(this);
+
+        Image play = new ImageIcon("src/icons/play.png").getImage().getScaledInstance(30,25, Image.SCALE_SMOOTH);
+        Image reset = new ImageIcon("src/icons/r1.jpg").getImage().getScaledInstance(30,25, Image.SCALE_SMOOTH);
+
+        PlayToggleButton.setIcon(new ImageIcon(play));
+        ResetButton.setIcon(new ImageIcon(reset));
+
+        PlayToggleButton.setPreferredSize(new Dimension(80,30));
+        ResetButton.setPreferredSize(new Dimension(80,30));
+
+        header.setLayout(new FlowLayout());
+        header.setPreferredSize(new Dimension(100, this.getHeight()));
+        header.add(PlayToggleButton);
+        header.add(ResetButton);
+        header.add(GenerationLabel);
+        header.add(aliveLabel);
+
+        body.setLayout(new BorderLayout());
+        body.setPreferredSize(new Dimension(500, this.getHeight()));
+
+        add(header, BorderLayout.WEST);
+        add(body, BorderLayout.CENTER);
+        setVisible(true);
+
+    }
+
+    public static void updateLabels(){
+        body.run();
+        GenerationLabel.setText("Generation #"+ genNumber++);
+        aliveLabel.setText("Alive: "+ body.totalAlive());
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getActionCommand().equals("Pause") || e.getActionCommand().equals("Play")){
+            pauseResume();
+        }
+        else if(e.getActionCommand().equals("Reset")){
+            reset();
+        }
+    }
+
+    static void loopStep(){
+        timer.schedule(game, 0,100);
+    }
+
+    static void pauseResume() {
+        if(!isPaused){
+            PlayToggleButton.setText("Play");
+            isPaused = true;
+            timer.cancel();
+        }
+        else{
+            PlayToggleButton.setText("Pause");
+            isPaused = false;
+            timer = new Timer();
+            timer.schedule(new GameStep(), 0,100);
+        }
+    }
+
+    static void reset() {
+        timer.cancel();
+        isPaused = false;
+
+        genNumber = 1;
+        header = new JPanel();
+        body.reset();
+
+        timer = new Timer();
+        timer.schedule(new GameStep(), 0,100);
+    }
+
+    public static void main(String[] args) {
+        loopStep();
     }
 }
