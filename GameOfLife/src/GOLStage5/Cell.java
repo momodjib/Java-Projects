@@ -41,11 +41,12 @@ public class Cell {
     public void draw(Graphics2D g2) {
         if(alive) {
             g2.setColor(ALIVE_COLOR);
+            g2.fill(rectangle);
         }
         else{
             g2.setColor(DEAD_COLOR);
+            g2.draw(rectangle);
         }
-        g2.fill(rectangle);
     }
 
 }

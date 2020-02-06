@@ -24,10 +24,10 @@ public class GameOfLife extends JFrame implements ActionListener {
     static JPanel header = new JPanel();
     static int genNumber = 1;
     static Boolean isPaused = false;
+    static JButton PlayToggleButton = new JButton("Pause");
+    JButton ResetButton = new JButton("Reset");
     static GameStep game = new GameStep();
     static Timer timer = new Timer();
-    JButton PlayToggleButton = new JButton("pause");
-    JButton ResetButton = new JButton("reset");
 
     public GameOfLife() {
         super("Game of life");
@@ -50,8 +50,8 @@ public class GameOfLife extends JFrame implements ActionListener {
         PlayToggleButton.setIcon(new ImageIcon(play));
         ResetButton.setIcon(new ImageIcon(reset));
 
-        PlayToggleButton.setPreferredSize(new Dimension(40,30));
-        ResetButton.setPreferredSize(new Dimension(40,30));
+        PlayToggleButton.setPreferredSize(new Dimension(80,30));
+        ResetButton.setPreferredSize(new Dimension(80,30));
 
         header.setLayout(new FlowLayout());
         header.setPreferredSize(new Dimension(100, this.getHeight()));
@@ -78,43 +78,45 @@ public class GameOfLife extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getActionCommand().equals("pause")){
+        if(e.getActionCommand().equals("Pause") || e.getActionCommand().equals("Play")){
             pauseResume();
         }
-        else if(e.getActionCommand().equals("reset")){
+        else if(e.getActionCommand().equals("Reset")){
             reset();
         }
     }
 
     static void loopStep(){
-        timer.schedule(game, 0,10);
+        timer.schedule(game, 0,100);
     }
 
     static void pauseResume() {
         if(!isPaused){
+            PlayToggleButton.setText("Play");
             isPaused = true;
             timer.cancel();
         }
         else{
+            PlayToggleButton.setText("Pause");
             isPaused = false;
             timer = new Timer();
-            timer.schedule(new GameStep(), 0,10);
+            timer.schedule(new GameStep(), 0,100);
         }
     }
 
     static void reset() {
         timer.cancel();
         isPaused = false;
-        
+
         genNumber = 1;
         header = new JPanel();
         body.reset();
 
         timer = new Timer();
-        timer.schedule(new GameStep(), 0,10);
+        timer.schedule(new GameStep(), 0,100);
     }
 
     public static void main(String[] args) {
-       loopStep();
+        loopStep();
     }
 }

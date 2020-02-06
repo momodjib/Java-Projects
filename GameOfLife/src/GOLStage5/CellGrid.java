@@ -55,7 +55,7 @@ public class CellGrid extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        cellGrid = new GenerationMaker4().nextGeneration(cellGrid);
+        cellGrid = new GenerationMaker5().nextGeneration(cellGrid);
         repaint();
     }
 }
