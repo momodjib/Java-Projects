@@ -1,4 +1,4 @@
-package Stage5.Main;
+package Main;
 
 import Stage6.DecisionMaker;
 
